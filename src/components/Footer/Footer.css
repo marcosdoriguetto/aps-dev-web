@@ -1,0 +1,25 @@
+.footer,
+.links {
+  display: flex;
+  align-items: center;
+}
+
+.footer {
+  width: 100%;
+  justify-content: center;
+  padding: 1.75rem 1rem;
+  gap: 5px;
+
+  position: absolute;
+  bottom: 0;
+
+  background-color: var(--gray900);
+}
+
+.links span {
+  padding-right: 3px;
+}
+
+.hearth {
+  color: #820ad1;
+}

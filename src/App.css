@@ -1,0 +1,24 @@
+:root {
+  --white: #ffff;
+
+  --gray900: #181b23;
+  --gray800: #1f2029;
+
+  --red500: #d80100;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+
+  background-color: var(--gray800);
+
+  font-family: "Roboto", sans-serif;
+  color: var(--white);
+}

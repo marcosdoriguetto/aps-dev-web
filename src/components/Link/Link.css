@@ -1,0 +1,9 @@
+.link {
+  color: var(--red500);
+
+  transition: filter 50ms;
+}
+
+.link:hover {
+  filter: brightness(0.8);
+}
