@@ -15,8 +15,8 @@ export function Dashboard() {
   return (
     <main className="main-container">
       <iframe
-        width="1280"
-        height="720"
+        width="900"
+        height="600"
         src="https://www.youtube.com/embed/wMfUznu3Nqw"
         title="Loading Circle - Progress Animation - Effect Loop | Free Download"
         frameBorder="0"
