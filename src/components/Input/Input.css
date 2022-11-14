@@ -29,3 +29,10 @@
 .input:focus {
   border: 2px solid var(--red500);
 }
+
+.error-message {
+  font-size: 14px;
+  color: var(--red500);
+  font-weight: bold;
+}
+

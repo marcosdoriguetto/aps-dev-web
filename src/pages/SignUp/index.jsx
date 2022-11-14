@@ -7,18 +7,19 @@ import { useAuthToken } from "../../contexts/UserAuth.contexts";
 import { Input } from "../../components/Input";
 
 import LogoUnicarioca from "../../assets/logo-unicarioca.png";
-import "./SignIn.css";
+import "./SignUp.css";
 import { useEffect } from "react";
 import { Link } from "../../components/Link";
 
-import { resolver } from "./SignIn.validation";
+import { resolver } from "./SignUp.validation";
 
-export function SignIn() {
+export function SignUp() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver });
+
 
   const navigate = useNavigate();
   const { authToken, setAuthToken } = useAuthToken();
@@ -29,15 +30,13 @@ export function SignIn() {
     }
   }, []);
 
-  function handleSignIn(signInData) {
+  function handleSignUp(signUpData) {
     const UUID = uuidv4();
     localStorage.setItem("auth", UUID);
     setAuthToken(UUID);
 
-    navigate("/dashboard");
+    navigate("/");
   }
-
-  console.log(errors)
 
   return (
     <div className="container">
@@ -45,22 +44,26 @@ export function SignIn() {
 
       <form
         className="form-container"
-        onSubmit={handleSubmit(handleSignIn)}
+        onSubmit={handleSubmit(handleSignUp)}
         autoComplete="off"
         noValidate
       >
         <div className="inputs-container">
-          <Input label="E-mail" type="email" error={errors.email} {...register("email")} />
+        	<Input label="Nome" type="text" error={errors.name} {...register('name')}/>
 
-          <Input label="Senha" type="password" error={errors.password} {...register("password")} />
+          <Input label="E-mail" type="email" error={errors.email} {...register('email')}/>
+
+          <Input label="Senha" type="password" error={errors.password} {...register('password')}/>
+
+          <Input label="Confirmação de senha" id="confirmPassword" type="password" error={errors.confirmPassword} {...register('confirmPassword')}/>
         </div>
 
         <button className="button" type="submit">
-          Entrar
+          Registrar
         </button>
 
-        <div className="create-account">
-          <Link href="/register">Não tem conta? Registrar</Link>
+				<div className="login">
+					<Link href="/">Já tem conta? Logar</Link>
 				</div>
       </form>
     </div>

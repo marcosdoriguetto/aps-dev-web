@@ -8,6 +8,7 @@ import { Dashboard } from "./pages/Dashboard";
 
 import "./App.css";
 import { Footer } from "./components/Footer";
+import { SignUp } from "./pages/SignUp";
 
 function App() {
   const { authToken } = useAuthToken();
@@ -31,6 +32,7 @@ function App() {
         )}
 
         <Route element={<SignIn />} path="/" />
+        <Route element={<SignUp />} path="/register" />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
