@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 
 import { useForm } from "react-hook-form";
 import { useAuthToken } from "../../contexts/UserAuth.contexts";
@@ -13,7 +12,13 @@ import { Link } from "../../components/Link";
 
 import { resolver } from "./SignIn.validation";
 
+import api from '../../config/api'
+
+import { useSnackbar } from "notistack";
+
 export function SignIn() {
+  const { enqueueSnackbar } = useSnackbar()
+
   const {
     register,
     handleSubmit,
@@ -23,21 +28,28 @@ export function SignIn() {
   const navigate = useNavigate();
   const { authToken, setAuthToken } = useAuthToken();
 
+  async function handleSignIn(signInData) {
+    try {
+      const response = await api.post('/users/login', signInData)
+      console.log(response.data)
+      setAuthToken(JSON.stringify(response.data));
+
+      enqueueSnackbar('Usuário logado com sucesso', { variant: 'success' })
+      navigate("/dashboard");
+    } catch(error) {
+      if(error.response.status === 401) {
+        return enqueueSnackbar('E-mail ou senha incorretos', { variant: 'error' })
+      }
+
+      return enqueueSnackbar('Algo deu errado, por favor contate um administrador', { variant: 'error' })
+    }
+  }
+
   useEffect(() => {
     if (authToken) {
       navigate("/dashboard");
     }
   }, []);
-
-  function handleSignIn(signInData) {
-    const UUID = uuidv4();
-    localStorage.setItem("auth", UUID);
-    setAuthToken(UUID);
-
-    navigate("/dashboard");
-  }
-
-  console.log(errors)
 
   return (
     <div className="container">
@@ -61,7 +73,7 @@ export function SignIn() {
 
         <div className="create-account">
           <Link href="/register">Não tem conta? Registrar</Link>
-				</div>
+        </div>
       </form>
     </div>
   );

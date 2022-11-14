@@ -13,7 +13,13 @@ import { Link } from "../../components/Link";
 
 import { resolver } from "./SignUp.validation";
 
+import api from '../../config/api'
+
+import { useSnackbar } from "notistack";
+
 export function SignUp() {
+  const { enqueueSnackbar } = useSnackbar()
+
   const {
     register,
     handleSubmit,
@@ -30,12 +36,16 @@ export function SignUp() {
     }
   }, []);
 
-  function handleSignUp(signUpData) {
-    const UUID = uuidv4();
-    localStorage.setItem("auth", UUID);
-    setAuthToken(UUID);
+  async function handleSignUp(signUpData) {
+    const { name, email, password } = signUpData
+    try {
+      await api.post('/users/register', { name, email, password })
 
-    navigate("/");
+      enqueueSnackbar('Usuário criado com sucesso', { variant: 'success' })
+      navigate("/");
+    } catch(error) {
+      enqueueSnackbar('Algo deu errado, por favor contate um administrador', { variant: 'error' })
+    }
   }
 
   return (
@@ -49,7 +59,7 @@ export function SignUp() {
         noValidate
       >
         <div className="inputs-container">
-        	<Input label="Nome" type="text" error={errors.name} {...register('name')}/>
+          <Input label="Nome" type="text" error={errors.name} {...register('name')}/>
 
           <Input label="E-mail" type="email" error={errors.email} {...register('email')}/>
 
@@ -62,9 +72,9 @@ export function SignUp() {
           Registrar
         </button>
 
-				<div className="login">
-					<Link href="/">Já tem conta? Logar</Link>
-				</div>
+        <div className="login">
+          <Link href="/">Já tem conta? Logar</Link>
+        </div>
       </form>
     </div>
   );
