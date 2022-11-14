@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 
 import { useForm } from "react-hook-form";
-import { useAuthToken } from "../../contexts/UserAuth.contexts";
+import { useAuth } from "../../contexts/UserAuth.contexts";
 
 import { Input } from "../../components/Input";
 
@@ -28,10 +27,10 @@ export function SignUp() {
 
 
   const navigate = useNavigate();
-  const { authToken, setAuthToken } = useAuthToken();
+  const { auth } = useAuth();
 
   useEffect(() => {
-    if (authToken) {
+    if (auth) {
       navigate("/dashboard");
     }
   }, []);
@@ -49,16 +48,16 @@ export function SignUp() {
   }
 
   return (
-    <div className="container">
-      <img className="logo" src={LogoUnicarioca} alt="Logo Unicarioca" />
+    <div className="signUp__container">
+      <img className="signUp__logo" src={LogoUnicarioca} alt="Logo Unicarioca" />
 
       <form
-        className="form-container"
+        className="signUp__form-container"
         onSubmit={handleSubmit(handleSignUp)}
         autoComplete="off"
         noValidate
       >
-        <div className="inputs-container">
+        <div className="signUp__inputs-container">
           <Input label="Nome" type="text" error={errors.name} {...register('name')}/>
 
           <Input label="E-mail" type="email" error={errors.email} {...register('email')}/>
@@ -68,11 +67,11 @@ export function SignUp() {
           <Input label="Confirmação de senha" id="confirmPassword" type="password" error={errors.confirmPassword} {...register('confirmPassword')}/>
         </div>
 
-        <button className="button" type="submit">
+        <button className="signUp__button" type="submit">
           Registrar
         </button>
 
-        <div className="login">
+        <div className="signUp__login">
           <Link href="/">Já tem conta? Logar</Link>
         </div>
       </form>

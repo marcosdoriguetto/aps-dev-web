@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
-import { useAuthToken } from "../../contexts/UserAuth.contexts";
+import { useAuth } from "../../contexts/UserAuth.contexts";
 
 import { Input } from "../../components/Input";
 
@@ -26,13 +26,12 @@ export function SignIn() {
   } = useForm({ resolver });
 
   const navigate = useNavigate();
-  const { authToken, setAuthToken } = useAuthToken();
+  const { auth, setAuth } = useAuth();
 
   async function handleSignIn(signInData) {
     try {
       const response = await api.post('/users/login', signInData)
-      console.log(response.data)
-      setAuthToken(JSON.stringify(response.data));
+      setAuth(JSON.stringify(response.data));
 
       enqueueSnackbar('Usuário logado com sucesso', { variant: 'success' })
       navigate("/dashboard");
@@ -46,32 +45,32 @@ export function SignIn() {
   }
 
   useEffect(() => {
-    if (authToken) {
+    if (auth) {
       navigate("/dashboard");
     }
   }, []);
 
   return (
-    <div className="container">
-      <img className="logo" src={LogoUnicarioca} alt="Logo Unicarioca" />
+    <div className="signIn__container">
+      <img className="signIn__logo" src={LogoUnicarioca} alt="Logo Unicarioca" />
 
       <form
-        className="form-container"
+        className="signIn__form-container"
         onSubmit={handleSubmit(handleSignIn)}
         autoComplete="off"
         noValidate
       >
-        <div className="inputs-container">
+        <div className="signIn__inputs-container">
           <Input label="E-mail" type="email" error={errors.email} {...register("email")} />
 
           <Input label="Senha" type="password" error={errors.password} {...register("password")} />
         </div>
 
-        <button className="button" type="submit">
+        <button className="signIn__button" type="submit">
           Entrar
         </button>
 
-        <div className="create-account">
+        <div className="signIn__create-account">
           <Link href="/register">Não tem conta? Registrar</Link>
         </div>
       </form>

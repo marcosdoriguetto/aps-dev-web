@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { useAuthToken } from "../../contexts/UserAuth.contexts";
+import { useAuth } from "../../contexts/UserAuth.contexts";
 
+import { AddNewProjectForm } from "./components/AddNewProjectForm";
 import { Modal } from "../Modal";
 
 import "./Header.css";
 
 export function Header() {
   const [openCreateProjectModal, setOpenCreateProjectModal] = useState(false)
-  const { setAuthToken } = useAuthToken();
+  const { setAuth } = useAuth();
 
 	function handleLogout() {
 		localStorage.removeItem('auth')
 
-		setAuthToken(null)
+		setAuth(null)
 	}
 
   function handleOpenCreateProjectModal() {
@@ -30,8 +31,8 @@ export function Header() {
         <button className="logout-button" onClick={handleLogout}>Sair</button>
       </header>
 
-      <Modal title="Modal" onClose={handleCloseCreateProjectModal} show={openCreateProjectModal}>
-        <p>This is modal body</p>
+      <Modal title="Criar projeto" onClose={handleCloseCreateProjectModal} show={openCreateProjectModal}>
+        <AddNewProjectForm onClose={handleCloseCreateProjectModal} />
       </Modal>
     </>
   );

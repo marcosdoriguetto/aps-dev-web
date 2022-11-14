@@ -1,4 +1,4 @@
-.container {
+.signUp__container {
   max-width: 1120px;
   height: 100vh;
   margin: 0 auto;
@@ -9,12 +9,12 @@
   flex-direction: column;
 }
 
-.logo {
+.signUp__logo {
   width: 360px;
   margin-bottom: 1.25rem;
 }
 
-.form-container {
+.signUp__form-container {
   width: 368px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
@@ -29,7 +29,7 @@
   gap: 1rem;
 }
 
-.inputs-container {
+.signUp__inputs-container {
   width: 100%;
 
   display: flex;
@@ -37,7 +37,7 @@
   gap: 1rem;
 }
 
-.button {
+.signUp__button {
   width: 100%;
   height: 45px;
 
@@ -53,6 +53,6 @@
   transition: filter 200ms;
 }
 
-.button:hover {
+.signUp__button:hover {
   filter: brightness(0.75);
 }

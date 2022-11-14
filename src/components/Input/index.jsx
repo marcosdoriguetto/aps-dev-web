@@ -1,14 +1,20 @@
 import { forwardRef } from "react";
+import InputMask from "react-input-mask";
 import "./Input.css";
 
-function InputField({ label, type, error, ...rest }, ref) {
+function InputField({ label, type, error, mask, ...rest }, ref) {
   return (
     <>
       <div className="input-container">
         <label className="label" htmlFor={type}>
           {label}
         </label>
-        <input className="input" id={type} type={type} ref={ref} {...rest} />
+        {mask ? (
+          <InputMask className="input" mask={mask} id={type} type={type} ref={ref} {...rest} />
+        ) : (
+          <input className="input" id={type} type={type} ref={ref} {...rest} />
+        )}
+
       </div>
 
       {!!error && <p className="error-message">{error.message}</p>}

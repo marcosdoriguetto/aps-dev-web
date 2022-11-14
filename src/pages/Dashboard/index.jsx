@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthToken } from "../../contexts/UserAuth.contexts";
+import { useAuth } from "../../contexts/UserAuth.contexts";
 
 import "./Dashboard.css";
 
 export function Dashboard() {
-  const { authToken } = useAuthToken();
+  const { auth } = useAuth();
 
   const navigate = useNavigate();
 
-  if (!authToken) {
+  if (!auth) {
     navigate("/");
   }
 
