@@ -7,31 +7,42 @@ import { Modal } from "../Modal";
 import "./Header.css";
 
 export function Header() {
-  const [openCreateProjectModal, setOpenCreateProjectModal] = useState(false)
+  const [openCreateProjectModal, setOpenCreateProjectModal] = useState(false);
   const { setAuth } = useAuth();
 
-	function handleLogout() {
-		localStorage.removeItem('auth')
+  function handleLogout() {
+    localStorage.removeItem("auth");
 
-		setAuth(null)
-	}
+    setAuth(null);
+  }
 
   function handleOpenCreateProjectModal() {
-    setOpenCreateProjectModal(true)
+    setOpenCreateProjectModal(true);
   }
 
   function handleCloseCreateProjectModal() {
-    setOpenCreateProjectModal(false)
+    setOpenCreateProjectModal(false);
   }
 
   return (
     <>
       <header className="header">
-        <button className="create_project-button" onClick={handleOpenCreateProjectModal}>Criar projeto</button>
-        <button className="logout-button" onClick={handleLogout}>Sair</button>
+        <button
+          className="create_project-button"
+          onClick={handleOpenCreateProjectModal}
+        >
+          Criar projeto
+        </button>
+        <button className="logout-button" onClick={handleLogout}>
+          Sair
+        </button>
       </header>
 
-      <Modal title="Criar projeto" onClose={handleCloseCreateProjectModal} show={openCreateProjectModal}>
+      <Modal
+        title="Criar projeto"
+        onClose={handleCloseCreateProjectModal}
+        show={openCreateProjectModal}
+      >
         <AddNewProjectForm onClose={handleCloseCreateProjectModal} />
       </Modal>
     </>

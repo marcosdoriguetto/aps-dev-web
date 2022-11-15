@@ -12,17 +12,17 @@ import { Link } from "../../components/Link";
 
 import { resolver } from "./SignIn.validation";
 
-import api from '../../config/api'
+import api from "../../config/api";
 
 import { useSnackbar } from "notistack";
 
 export function SignIn() {
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({ resolver });
 
   const navigate = useNavigate();
@@ -30,17 +30,22 @@ export function SignIn() {
 
   async function handleSignIn(signInData) {
     try {
-      const response = await api.post('/users/login', signInData)
+      const response = await api.post("/users/login", signInData);
       setAuth(JSON.stringify(response.data));
 
-      enqueueSnackbar('Usuário logado com sucesso', { variant: 'success' })
+      enqueueSnackbar("Usuário logado com sucesso", { variant: "success" });
       navigate("/dashboard");
-    } catch(error) {
-      if(error.response.status === 401) {
-        return enqueueSnackbar('E-mail ou senha incorretos', { variant: 'error' })
+    } catch (error) {
+      if (error.response.status === 401) {
+        return enqueueSnackbar("E-mail ou senha incorretos", {
+          variant: "error",
+        });
       }
 
-      return enqueueSnackbar('Algo deu errado, por favor contate um administrador', { variant: 'error' })
+      return enqueueSnackbar(
+        "Algo deu errado, por favor contate um administrador",
+        { variant: "error" }
+      );
     }
   }
 
@@ -52,7 +57,11 @@ export function SignIn() {
 
   return (
     <div className="signIn__container">
-      <img className="signIn__logo" src={LogoUnicarioca} alt="Logo Unicarioca" />
+      <img
+        className="signIn__logo"
+        src={LogoUnicarioca}
+        alt="Logo Unicarioca"
+      />
 
       <form
         className="signIn__form-container"
@@ -61,9 +70,19 @@ export function SignIn() {
         noValidate
       >
         <div className="signIn__inputs-container">
-          <Input label="E-mail" type="email" error={errors.email} {...register("email")} />
+          <Input
+            label="E-mail"
+            type="email"
+            error={errors.email}
+            {...register("email")}
+          />
 
-          <Input label="Senha" type="password" error={errors.password} {...register("password")} />
+          <Input
+            label="Senha"
+            type="password"
+            error={errors.password}
+            {...register("password")}
+          />
         </div>
 
         <button className="signIn__button" type="submit">

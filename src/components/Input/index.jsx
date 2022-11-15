@@ -10,11 +10,17 @@ function InputField({ label, type, error, mask, ...rest }, ref) {
           {label}
         </label>
         {mask ? (
-          <InputMask className="input" mask={mask} id={type} type={type} ref={ref} {...rest} />
+          <InputMask
+            className="input"
+            mask={mask}
+            id={type}
+            type={type}
+            ref={ref}
+            {...rest}
+          />
         ) : (
           <input className="input" id={type} type={type} ref={ref} {...rest} />
         )}
-
       </div>
 
       {!!error && <p className="error-message">{error.message}</p>}
@@ -22,4 +28,4 @@ function InputField({ label, type, error, mask, ...rest }, ref) {
   );
 }
 
-export const Input = forwardRef(InputField)
+export const Input = forwardRef(InputField);

@@ -2,14 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { UserAuthProvider } from "./contexts/UserAuth.contexts";
-import { SnackbarProvider } from "notistack"
+import { ProjectProvider } from "./contexts/Projects.contexts";
+import { SnackbarProvider } from "notistack";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-      <UserAuthProvider>
-        <SnackbarProvider autoHideDuration={3000}>
-          <App />
-        </SnackbarProvider>
-      </UserAuthProvider>
-  </React.StrictMode>
+  <UserAuthProvider>
+    <SnackbarProvider autoHideDuration={3000}>
+      <ProjectProvider>
+        <App />
+      </ProjectProvider>
+    </SnackbarProvider>
+  </UserAuthProvider>
 );

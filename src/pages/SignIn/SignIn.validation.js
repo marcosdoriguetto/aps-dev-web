@@ -6,7 +6,7 @@ const validateSchema = yup.object().shape({
     .string()
     .required("Por favor insira seu e-mail")
     .email("Por favor insira um e-mail válido"),
-  password: yup.string().required("Por favor insira sua senha")
+  password: yup.string().required("Por favor insira sua senha"),
 });
 
 export const resolver = yupResolver(validateSchema);
